@@ -12,21 +12,15 @@ public class PointLocation extends Location {
   }
   
   public PointLocation(String locId, Point loc) {
-    locationId = locId;
-    location = loc;
-    elevation = new Double(-99.99);
+    this(locId, loc, new Double(-99.99));
   }
 
   public PointLocation(String locId, Double lat, Double lon, Double elev) {
-    locationId = locId;
-    location = new Point(lat, lon);
-    elevation = elev;
+    this(locId, new Point(lat, lon), elev);
   }
 
   public PointLocation(String locId, Double lat, Double lon) {
-    locationId = locId;
-    location = new Point(lat, lon);
-    elevation = new Double(-99.99);
+    this(locId, new Point(lat, lon), new Double(-99.99));
   }
 
   public String getLocationId() {

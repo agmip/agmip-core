@@ -10,11 +10,6 @@ public class Point {
     longitude = lon;
   }
 
-  public Point(double lat,
-               double lon) {
-    this(new Double(lat), new Double(lon));
-  }
-
   public Point() {
     this( new Double(-99.99), new Double(-99.99));
   }

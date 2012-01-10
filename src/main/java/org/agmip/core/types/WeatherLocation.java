@@ -11,20 +11,29 @@ public class WeatherLocation {
                          Double refht,
                          Double wndht,
                          Double tavg,
-                         Double tamp) {
+                         Double tamp,
+                         Double defVal) {
     location = loc;
-    referenceHeight = (refht == null) ? new Double(-99.99) : refht;
-    windHeight      = (wndht == null) ? new Double(-99.99) : wndht;
-    tempAverage     = (tavg  == null) ? new Double(-99.99) : tavg;
-    tempAmplitude   = (tamp  == null) ? new Double(-99.99) : tamp;
+    referenceHeight = (refht == null) ? defVal : refht;
+    windHeight      = (wndht == null) ? defVal : wndht;
+    tempAverage     = (tavg  == null) ? defVal : tavg;
+    tempAmplitude   = (tamp  == null) ? defVal : tamp;
+  }
+  
+  public WeatherLocation(Location loc,
+                         Double refht,
+                         Double wndht,
+                         Double tavg,
+                         Double tamp) {
+    this(loc, refht, wndht, tavg, tamp, new Double(-99.99));
+  }
+
+  public WeatherLocation(Location loc, Double defVal) {
+    this(loc, null, null, null, null, defVal);
   }
 
   public WeatherLocation(Location loc) {
-    location = loc;
-    referenceHeight = new Double(-99.99);
-    windHeight      = new Double(-99.99);
-    tempAverage     = new Double(-99.99);
-    tempAmplitude   = new Double(-99.99);
+    this(loc, null, null, null, null, new Double(-99.99));
   }
 
   public Double getReferenceHeight() {
@@ -41,6 +50,10 @@ public class WeatherLocation {
 
   public Double getTempAmplitude() {
     return tempAmplitude;
+  }
+
+  public Location getLocation() {
+    return location;
   }
 
   public void setReferenceHeight( Double refht ) {

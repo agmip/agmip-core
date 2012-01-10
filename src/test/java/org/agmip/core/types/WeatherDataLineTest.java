@@ -9,7 +9,7 @@ public class WeatherDataLineTest {
   @Test
   public void blankWeatherDataLine(){
     WeatherDataLine test = new WeatherDataLine(new HashMap<String, Object>());
-    assertEquals("Max Temperature", new Double(-99.99), test.getTempMax());
+    assertEquals("Max Temperature", null, test.getTempMax());
   }
 
   @Test
@@ -18,7 +18,7 @@ public class WeatherDataLineTest {
       put("tmax", 12.34);
     }});
     assertEquals("Max Temperature", new Double(12.34), test.getTempMax());
-    assertEquals("Min Temperature", new Double(-99.99), test.getTempMin());
+    assertEquals("Min Temperature", null, test.getTempMin());
   }
 
   @Test
@@ -54,7 +54,7 @@ public class WeatherDataLineTest {
     test.setExtraData("extra_one", 12.34);
     test.setExtraData("extra_two", "HELLO");
     HashMap extra = test.getExtraData();
-    assertEquals("Min Temperature", new Double(-99.99), test.getTempMin());
+    assertEquals("Min Temperature", null, test.getTempMin());
     assertEquals("Extra One", 12.34, extra.get("extra_one"));
     assertEquals("Extra Two", "HELLO", extra.get("extra_two"));
   }

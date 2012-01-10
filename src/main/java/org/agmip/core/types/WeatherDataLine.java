@@ -8,21 +8,16 @@ public class WeatherDataLine extends DataLine {
   private HashMap<String, Object> extra;
   private Double defaultValue = -99.99;
   
-  public WeatherDataLine(HashMap<String, Object> inputData, Double defVal) {
-    defaultValue = defVal;
-    String[] fields = {"tmin", "tmax", "rain", "srad", "wind", "dewp", "vprs", "rhum"};
+  public WeatherDataLine(HashMap<String, Object> inputData) {
+    String[] fields = {"date", "tmin", "tmax", "rain", "srad", "wind", "dewp", "vprs", "rhum"};
     data = new HashMap<String, Object>();
     for(int i=0; i < fields.length; i++ ) {
       String key = fields[i];
       Object val = inputData.get(key);
-      data.put(key, (val == null) ? defVal : val);
+      data.put(key, val);
       inputData.remove(key);
     }
     extra = inputData;
-  }
-
-  public WeatherDataLine(HashMap<String, Object> inputData) {
-    this(inputData, -99.99);
   }
 
   public Double getTempMin() {
@@ -62,35 +57,35 @@ public class WeatherDataLine extends DataLine {
   }
 
   public void setTempMin(Double tm) {
-    data.put("tmin", (tm == null) ? -99.99 : tm);
+    data.put("tmin", tm);
   }
 
   public void setTempMax(Double tm) {
-    data.put("tmin", (tm == null) ? -99.99 : tm);
+    data.put("tmax", tm);
   }
 
   public void setSolarRadiation(Double sr) {
-    data.put("tmin", (sr == null) ? -99.99 : sr);
+    data.put("srad", sr);
   }
 
   public void setWindSpeed(Double ws) {
-    data.put("tmin", (ws == null) ? -99.99 : ws);
+    data.put("wind", ws);
   }
 
   public void setDewPoint(Double dp) {
-    data.put("tmin", (dp == null) ? -99.99 : dp);
+    data.put("dewp", dp);
   }
 
   public void setVaporPressure(Double vp) {
-    data.put("tmin", (vp == null) ? -99.99 : vp);
+    data.put("vprs", vp);
   }
 
   public void setRelativeHumidity(Double rh) {
-    data.put("tmin", (rh == null) ? -99.99 : rh);
+    data.put("rhum", rh);
   }
 
   public void setRain(Double r) {
-    data.put("rain", (r == null) ? -99.99: r);
+    data.put("rain", r);
   }
 
   public void setExtraData(HashMap <String, Object> ex) {
