@@ -1,9 +1,14 @@
 package org.agmip.core.types;
 
+/**
+ * Weather specific DataLine implementation
+ */
+
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Date;
 
-public class WeatherDataLine extends DataLine {
+public class WeatherDataLine interface DataLine {
   private HashMap<String, Object> data;
   private HashMap<String, Object> extra;
   private Double defaultValue = -99.99;
@@ -18,6 +23,10 @@ public class WeatherDataLine extends DataLine {
       inputData.remove(key);
     }
     extra = inputData;
+  }
+
+  public Date getDate() {
+    return (Date) data.get("date");
   }
 
   public Double getTempMin() {
@@ -52,8 +61,16 @@ public class WeatherDataLine extends DataLine {
     return (Double) data.get("rain");
   }
 
+  public HashMap getRawData() {
+    return data;
+  }
+
   public HashMap getExtraData() {
     return extra;
+  }
+
+  public void setDate(Date d) {
+    data.put("date", d);
   }
 
   public void setTempMin(Double tm) {

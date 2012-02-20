@@ -1,6 +1,10 @@
 package org.agmip.core.types;
 
-public class PointLocation extends Location {
+/**
+ * A point-based location
+ */
+
+public class PointLocation implements Location {
   private String locationId;
   private Point  location;
   private Double elevation;
@@ -8,11 +12,11 @@ public class PointLocation extends Location {
   public PointLocation(String locId, Point loc, Double elev) {
     locationId = locId;
     location   = loc;
-    elevation  = (elev == null) ? new Double(-99.99) : elev;
+    elevation  = elev;
   }
-  
+ 
   public PointLocation(String locId, Point loc) {
-    this(locId, loc, new Double(-99.99));
+    this(locId, loc, null);
   }
 
   public PointLocation(String locId, Double lat, Double lon, Double elev) {
@@ -20,7 +24,7 @@ public class PointLocation extends Location {
   }
 
   public PointLocation(String locId, Double lat, Double lon) {
-    this(locId, new Point(lat, lon), new Double(-99.99));
+    this(locId, new Point(lat, lon), null);
   }
 
   public String getLocationId() {

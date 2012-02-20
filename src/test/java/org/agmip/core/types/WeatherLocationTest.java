@@ -8,8 +8,8 @@ public class WeatherLocationTest {
   @Test
   public void blankWeatherLocationData() {
     WeatherLocation test = new WeatherLocation(new PointLocation("AAAA", new Point(0.0, 0.0)));
-    assertEquals("Temperature Average", new Double(-99.99), test.getTempAverage());
-    assertEquals("Reference Height", new Double(-99.99), test.getReferenceHeight());
+    assertEquals("Temperature Average", null, test.getTempAverage());
+    assertEquals("Reference Height", null, test.getReferenceHeight());
   }
 
   @Test
@@ -17,7 +17,7 @@ public class WeatherLocationTest {
     WeatherLocation test = new WeatherLocation(new PointLocation("AAAA", new Point(0.0, 0.0)),
                                                null, null, 12.34, null);
     assertEquals("Temperature Average", new Double(12.34), test.getTempAverage());
-    assertEquals("Reference Height", new Double(-99.99), test.getReferenceHeight());
+    assertEquals("Reference Height", null, test.getReferenceHeight());
   }
 
   @Test

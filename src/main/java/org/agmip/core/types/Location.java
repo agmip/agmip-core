@@ -1,3 +1,6 @@
 package org.agmip.core.types;
 
-abstract class Location {}
+/**
+ * A generic location interface with no knowledge of implementation
+ */
+public interface Location{}

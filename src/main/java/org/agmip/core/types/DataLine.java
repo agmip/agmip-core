@@ -1,3 +1,6 @@
 package org.agmip.core.types;
 
-abstract class DataLine {}
+/**
+ * A generic data line interface with no knowledge of implementation
+ */
+interface DataLine {}
