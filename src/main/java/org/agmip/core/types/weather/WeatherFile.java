@@ -1,4 +1,4 @@
-package org.agmip.core.types;
+package org.agmip.core.types.weather;
 
 /**
  * The primary interface that translators will interface with to
@@ -6,6 +6,6 @@ package org.agmip.core.types;
  */
 
 public interface WeatherFile {
-  void readFile(String file);
-  void writeFile(String file);
+  void readFile(String file, WeatherData data);
+  void writeFile(String file, WeatherData data);
 }
