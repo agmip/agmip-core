@@ -4,7 +4,7 @@
 
   <groupId>org.agmip.core</groupId>
   <artifactId>agmip-core</artifactId>
-  <version>0.2</version>
+  <version>0.3</version>
   <packaging>jar</packaging>
 
   <name>agmip-core</name>
