@@ -4,8 +4,10 @@ package org.agmip.core.types.weather;
  * The primary interface that translators will interface with to
  * read and write Weather Files
  */
+ 
+import org.agmip.core.types.AdvancedHashMap;
 
 public interface WeatherFile {
-  void readFile(String file, WeatherData data);
-  void writeFile(String file, WeatherData data);
+  public AdvancedHashMap readFile(String file);
+  public void writeFile(String file, AdvancedHashMap data);
 }
