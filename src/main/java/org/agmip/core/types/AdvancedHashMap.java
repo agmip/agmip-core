@@ -27,7 +27,19 @@ public class AdvancedHashMap<K, V> extends HashMap<K,V> {
     return (realValue == null) ? defaultValue : realValue;
   }
 
-  public void put(Map t) {
-    super.putAll(t);
+  public V put(K key, V value) {
+    if(value == null) {
+      if(super.get(key) != null) {
+        super.remove(key);
+      }
+      return null;
+    } else {
+      V oldValue = super.put(key, value);
+      return oldValue;
+    }
+  }
+
+  public void put(Map<? extends K, ? extends V>m) {
+    super.putAll(m);
   }
 }
