@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.agmip</groupId>
   <artifactId>agmip-core</artifactId>
-  <version>0.4.1</version>
+  <version>0.4.1-SNAPSHOT</version>
   <name>AgMIP Core Library</name>
   <description>The AgMIP core library which contains generic definitions for common objects within AgMIP</description>
   <url>http://agmip.org/</url>
