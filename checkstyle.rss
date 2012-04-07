@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2012</copyright>
     <item>
-      <title>File: 6,
-             Errors: 137,
+      <title>File: 3,
+             Errors: 46,
              Warnings: 0,
              Infos: 0
       </title>
@@ -29,7 +29,7 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.weather.WeatherFile.java">org/agmip/core/types/weather/WeatherFile.java</a>
+                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.AgMIPInputFile.java">org/agmip/core/types/AgMIPInputFile.java</a>
                 </td>
                 <td>
                   0
@@ -38,54 +38,12 @@
                   0
                 </td>
                 <td>
-                  6
+                  4
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.PointLocation.java">org/agmip/core/types/PointLocation.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  28
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.weather.WeatherData.java">org/agmip/core/types/weather/WeatherData.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  33
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.Point.java">org/agmip/core/types/Point.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  36
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.Location.java">org/agmip/core/types/Location.java</a>
+                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.AgMIPOutputFile.java">org/agmip/core/types/AgMIPOutputFile.java</a>
                 </td>
                 <td>
                   0
@@ -108,7 +66,7 @@
                   0
                 </td>
                 <td>
-                  30
+                  38
                 </td>
               </tr>
                       </tbody>
