@@ -6,6 +6,6 @@ package org.agmip.core.types;
 
 import org.agmip.core.types.AdvancedHashMap;
 
-public interface AgMIPOutputFile {
+public interface TranslatorOutput {
     public void writeFile(String file, AdvancedHashMap data);
 }

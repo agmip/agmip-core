@@ -6,6 +6,6 @@ package org.agmip.core.types;
 
 import org.agmip.core.types.AdvancedHashMap;
 
-public interface AgMIPInputFile {
+public interface TranslatorInput {
     public AdvancedHashMap readFile(String file);
 }
