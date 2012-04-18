@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2012</copyright>
     <item>
-      <title>File: 3,
-             Errors: 46,
+      <title>File: 4,
+             Errors: 79,
              Warnings: 0,
              Infos: 0
       </title>
@@ -29,34 +29,6 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.AgMIPInputFile.java">org/agmip/core/types/AgMIPInputFile.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.AgMIPOutputFile.java">org/agmip/core/types/AgMIPOutputFile.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.AdvancedHashMap.java">org/agmip/core/types/AdvancedHashMap.java</a>
                 </td>
                 <td>
@@ -66,7 +38,49 @@
                   0
                 </td>
                 <td>
-                  38
+                  42
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.TranslatorInput.java">org/agmip/core/types/TranslatorInput.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://agmip.org//checkstyle.html#org.agmip.util.JSONAdapter.java">org/agmip/util/JSONAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  29
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.TranslatorOutput.java">org/agmip/core/types/TranslatorOutput.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
                 </td>
               </tr>
                       </tbody>
