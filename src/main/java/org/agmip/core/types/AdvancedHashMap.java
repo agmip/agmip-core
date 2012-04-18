@@ -97,4 +97,13 @@ public class AdvancedHashMap<K, V> extends HashMap<K,V> {
       }
       return destination;
   }
+
+  /**
+   * An alias of <tt>AdvancedHashMap#filter</tt>.
+   *
+   * @see AdvancedHashMap#filter
+   */
+  public AdvancedHashMap extract(List<? extends K> list) {
+      return filter(list);
+  }
 }

@@ -1,6 +1,7 @@
 package org.agmip.core.types;
 
 import org.junit.Test;
+import org.junit.Before;
 import static org.junit.Assert.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,9 +20,11 @@ public class AdvancedHashMapTest {
         filter.add("a");
         filter.add("b");
 
-        AdvancedHashMap dest = source.filter(filter);
+        AdvancedHashMap dest = source.extract(filter);
 
         org.junit.Assert.assertEquals("Overlay check - valid", "Hello", dest.getOr("a", "FAILED"));
         org.junit.Assert.assertEquals("Overlay check - invalid", "INVALID", dest.getOr("c", "INVALID"));
     }
+
+
 }
