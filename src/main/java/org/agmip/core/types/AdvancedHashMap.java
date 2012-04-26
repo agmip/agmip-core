@@ -1,13 +1,13 @@
 package org.agmip.core.types;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.Iterator;
 
 /**
- * An extension of the <tt>HashMap</tt> class. This implementation
- * provides all the <tt>HashMap</tt> operations with modifications
+ * An extension of the <tt>LinkedHashMap</tt> class. This implementation
+ * provides all the <tt>LinkedHashMap</tt> operations with modifications
  * of the following:
  * <ul>
  * <li>Does <strong>not</strong> permit <tt>null</tt>values.
@@ -16,12 +16,12 @@ import java.util.Iterator;
  * </ul>
  *
  * @author Christopher Villalobos
- * @see HashMap
+ * @see LinkedHashMap
  * @see ArrayList
  * @since 0.5
  */
 
-public class AdvancedHashMap<K, V> extends HashMap<K,V> {
+public class AdvancedHashMap<K, V> extends LinkedHashMap<K,V> {
 
   public AdvancedHashMap(int initialCapacity, float loadFactor) {
     super(initialCapacity, loadFactor);
