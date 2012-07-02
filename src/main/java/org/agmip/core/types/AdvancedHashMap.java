@@ -2,7 +2,7 @@ package org.agmip.core.types;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.List;
+import java.util.Set;
 import java.util.Iterator;
 
 /**
@@ -42,11 +42,12 @@ public class AdvancedHashMap<K, V> extends LinkedHashMap<K,V> {
   /**
    * Returns the value to which the specified key is mapped,
    * or {@code defaultValue} if this map contains no mapping for
-   * the key or the key is {@code null}.
+   * the key, the key is {@code null} or the key is a {@code String}
+   * with a value of {@code ""}.
    */
   public V getOr(K key, V defaultValue) {
     V realValue = super.get(key);
-    return (realValue == null) ? defaultValue : realValue;
+    return (realValue == null || (realValue instanceof String && realValue == "")) ? defaultValue : realValue;
   }
 
   /**
@@ -88,7 +89,7 @@ public class AdvancedHashMap<K, V> extends LinkedHashMap<K,V> {
    * @return An <tt>AdvancedHashMap</tt> containing the keys and values
    *         contained in <tt>list</tt>.
    */
-  public AdvancedHashMap filter(List<? extends K> list) {
+  public AdvancedHashMap filter(Set<? extends K> list) {
       AdvancedHashMap<K, V> destination = new AdvancedHashMap<K,V>();
       Iterator iter = list.iterator();
       while(iter.hasNext()) {
@@ -103,7 +104,7 @@ public class AdvancedHashMap<K, V> extends LinkedHashMap<K,V> {
    *
    * @see AdvancedHashMap#filter
    */
-  public AdvancedHashMap extract(List<? extends K> list) {
-      return filter(list);
+  public AdvancedHashMap extract(Set<? extends K> set) {
+      return filter(set);
   }
 }
