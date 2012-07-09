@@ -4,8 +4,8 @@ package org.agmip.core.types;
  * The primary interface for translators to implement for output files.
  */
 
-import org.agmip.core.types.AdvancedHashMap;
+import java.util.Map;
 
 public interface TranslatorOutput {
-    public void writeFile(String file, AdvancedHashMap data);
+    public void writeFile(String file, Map data);
 }

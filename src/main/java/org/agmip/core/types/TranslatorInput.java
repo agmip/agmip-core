@@ -4,8 +4,8 @@ package org.agmip.core.types;
  * The primary interface for translators to implement for input files.
  */
 
-import org.agmip.core.types.AdvancedHashMap;
+import java.util.Map;
 
 public interface TranslatorInput {
-    public AdvancedHashMap readFile(String file);
+    public Map readFile(String file);
 }
