@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.Iterator;
 
 /**
+ * @deprecated As of 0.9, replaced by {@link org.agmip.utils.MapUtils}
  * An extension of the <tt>LinkedHashMap</tt> class. This implementation
  * provides all the <tt>LinkedHashMap</tt> operations with modifications
  * of the following:
