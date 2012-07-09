@@ -65,6 +65,26 @@ public class MapUtil {
         return acc;
     }
 
+    public static <K,V> List<Map<K,V>> extractFromList(List<Map<K,V>> l, K[] keys, V orValue) {
+        ArrayList<Map<K,V>> acc = new ArrayList<Map<K,V>>();
+        Map<K,V> stickyVals = new LinkedHashMap<K,V>();
+        ArrayList<K> ks = new ArrayList<K>(Arrays.asList(keys));
+
+        for(Map<K,V> m : l) {
+            if(acc.size() == 0) {
+                stickyVals = rawExtract(m, keys, orValue);
+                acc.add(stickyVals);
+            } else {
+                Map<K,V> newVal = new LinkedHashMap<K,V>();
+                for(K key: ks) {
+                    newVal.put(key, getValueOr(m, key, getValueOr(stickyVals, key, orValue)));
+                }
+                acc.add(newVal);
+            }
+        }
+        return acc;
+    }
+
     public static <K,V> Map<K,V> rawExtract(Map<K,V> m, K[] keys, V orValue) {
         ArrayList<K> ks = new ArrayList<K>(Arrays.asList(keys));
         Map<K,V> extract = new LinkedHashMap<K,V>();

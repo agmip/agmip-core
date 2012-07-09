@@ -153,4 +153,53 @@ public class MapUtilTest {
         assertTrue("A1", rawExtractFromList(ex, x1, "PASS").equals(t1));
         assertTrue("B1", rawExtractFromList(ex, x2, "PASS").equals(t2));
     }
+
+    @Test
+    public void extractTest() {
+        List<Map<String, String>> ex = new ArrayList<Map<String, String>>();
+        Map<String, String> l1 = new LinkedHashMap<String, String>();
+        Map<String, String> l2 = new LinkedHashMap<String, String>();
+
+        Map<String, String> tl1 = new LinkedHashMap<String, String>();
+        Map<String, String> tl2 = new LinkedHashMap<String, String>();
+        Map<String, String> tl3 = new LinkedHashMap<String, String>();
+        Map<String, String> tl4 = new LinkedHashMap<String, String>();
+        
+        List<Map<String, String>> t1 = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> t2 = new ArrayList<Map<String, String>>();
+
+        String[] x1 = new String[] {"a", "c"};
+        String[] x2 = new String[] {"b", "c"};
+
+        l1.put("a", "Alice");
+        l1.put("b", "Bob");
+        l2.put("a", "Alison");
+
+        ex.add(l1);
+        ex.add(l2);
+
+        tl1.put("a", "Alice");
+        tl1.put("c", "PASS");
+
+        tl2.put("a", "Alison");
+        tl2.put("c", "PASS");
+
+        tl3.put("b", "Bob");
+        tl3.put("c", "PASS");
+
+        tl4.put("b", "Bob");
+        tl4.put("c", "PASS");
+
+        t1.add(tl1);
+        t1.add(tl2);
+
+        t2.add(tl3);
+        t2.add(tl4);
+
+
+        System.out.println(rawExtractFromList(ex, x1, "PASS"));
+        assertTrue("A1", extractFromList(ex, x1, "PASS").equals(t1));
+        assertTrue("B1", extractFromList(ex, x2, "PASS").equals(t2));
+
+    }
 }
