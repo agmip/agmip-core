@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 
 public class FileUtil {
 	/**
-	 * This utility reads a json file and return a LinkedHashMap
+	 * This utility changes 
 	 * 
 	 * @param file
 	 * @return
