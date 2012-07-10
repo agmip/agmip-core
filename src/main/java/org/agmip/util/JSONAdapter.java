@@ -6,14 +6,15 @@ package org.agmip.util;
 
 import java.io.IOException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.agmip.core.types.Experiment;
 
 public class JSONAdapter {
-    private static final ObjectMapper mapper;
+    private static ObjectMapper mapper;
 
     public JSONAdapter() {
         mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonSerialize.Inclusion.NOT_NULL);
+        mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
     }
 
     public static Experiment fromJSON(String json) throws IOException {

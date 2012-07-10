@@ -36,7 +36,7 @@ public class Weather {
     private double anga ;
     private double bmth ;
     private String flaga ;
-    private ArrayList<DailyWeather> daily;
+    private ArrayList<DailyWeather> dailyWeather;
     
     
     /**
@@ -528,8 +528,8 @@ public class Weather {
 	/**
 	 * @return the daily
 	 */
-	public ArrayList<DailyWeather> getDaily() {
-		return daily;
+	public ArrayList<DailyWeather> getDailyWeather() {
+		return dailyWeather;
 	}
 
 
@@ -537,8 +537,8 @@ public class Weather {
 	/**
 	 * @param daily the daily to set
 	 */
-	public void setDaily(ArrayList<DailyWeather> daily) {
-		this.daily = daily;
+	public void setDailyWeather(ArrayList<DailyWeather> daily) {
+		this.dailyWeather = dailyWeather;
 	}
 
 
