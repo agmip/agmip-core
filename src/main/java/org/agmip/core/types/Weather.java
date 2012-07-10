@@ -6,7 +6,7 @@ import java.util.ArrayList;
  *
  * @author meng zhang
  */
-public class WeatherData {
+public class Weather {
     private String wid;
     private String wst_id;
     private String wst_name;
