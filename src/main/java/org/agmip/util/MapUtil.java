@@ -22,6 +22,7 @@ public class MapUtil {
 
                 if(key.equals("data")) {
                     this.dataList = (ArrayList<LinkedHashMap<String, String>>) value;
+                    this.parseDataList();
                 } else if ( value instanceof Map ) {
                     this.subBucketEntriesList.add(key);
                     this.subBucketEntries.put(key, value);
@@ -49,25 +50,23 @@ public class MapUtil {
             return (BucketEntry) getObjectOr(subBucketEntries, key, new BucketEntry());
         }
 
-        public ArrayList<LinkedHashMap<String, String>> parseDataList(Map<String, String> mapOrValues) {
+        private void parseDataList() {
             ArrayList<LinkedHashMap<String, String>> acc = new ArrayList();
             LinkedHashMap<String, String> stickyMap = new LinkedHashMap();
             for(Map<String, String> sourceMap : dataList) {
                 if( acc.size() == 0 ) {
-                    for(Map.Entry<String, String> e : mapOrValues.entrySet()) {
+                    for(Map.Entry<String, String> e : sourceMap.entrySet()) {
                         stickyMap.put(e.getKey(), getObjectOr(sourceMap, e.getKey(), e.getValue()));
                         acc.add(stickyMap);
                     }
                 } else {
                     LinkedHashMap<String, String> mergedMap = new LinkedHashMap();
                     for(Map.Entry<String, String> e : stickyMap.entrySet()) {
-                        String val = getObjectOr(sourceMap, e.getKey(), e.getValue());
-                        mergedMap.put(e.getKey(), ( val.equals("") ? mapOrValues.get(e.getKey()) : val ));
+                        mergedMap.put(e.getKey(), getObjectOr(sourceMap, e.getKey(), e.getValue()));
                         acc.add(mergedMap);
                     }
                 }
             }
-            return acc;
         }
     }
 
