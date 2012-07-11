@@ -5,9 +5,11 @@ package org.agmip.util;
  */
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.agmip.core.types.Experiment;
 
 public class JSONAdapter {
     private static ObjectMapper mapper;
@@ -17,8 +19,12 @@ public class JSONAdapter {
         mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
     }
 
-    public static Experiment fromJSON(String json) throws IOException {
-        return mapper.readValue(json, Experiment.class);
+
+
+    public static LinkedHashMap<String, Object> fromJSON(String json) throws IOException {
+        System.out.println("SOMETHING SHOULD BE GOING ON HERE!!!!");
+        System.out.println(json);
+        return mapper.readValue(json, LinkedHashMap.class);
     } 
 
     public static String toJSON(Object obj) throws IOException {

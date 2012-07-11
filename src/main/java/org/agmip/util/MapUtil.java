@@ -67,6 +67,7 @@ public class MapUtil {
                     }
                 }
             }
+            this.dataList = acc;
         }
     }
 
