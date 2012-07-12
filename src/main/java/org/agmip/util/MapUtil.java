@@ -12,20 +12,17 @@ public class MapUtil {
     public static class BucketEntry {
         private LinkedHashMap<String, String> values = new LinkedHashMap();
         private ArrayList<LinkedHashMap<String, String>> dataList = new ArrayList();
-        private ArrayList<String> subBucketEntriesList = new ArrayList();
-        private LinkedHashMap<String, Object> subBucketEntries = new LinkedHashMap();
 
         public BucketEntry(LinkedHashMap<String, Object> m) {
             for(Map.Entry<String, Object> entry : m.entrySet()) {
                 String key = entry.getKey();
                 Object value = entry.getValue();
 
-                if(key.equals("data")) {
+                if( key.equals("data") || key.equals("soilLayer") || key.equals("dailyWeather") || key.equals("events") ) {
                     this.dataList = (ArrayList<LinkedHashMap<String, String>>) value;
-                    this.parseDataList();
-                } else if ( value instanceof Map ) {
-                    this.subBucketEntriesList.add(key);
-                    this.subBucketEntries.put(key, value);
+                    if(! key.equals("events") ) {
+                        this.parseDataList();
+                    }
                 } else {
                     values.put(key, (String) value);
                 }
@@ -42,34 +39,51 @@ public class MapUtil {
             return dataList;
         }
 
-        public ArrayList<String> getSubBucketEntries() {
-            return subBucketEntriesList;
-        }
-
-        public BucketEntry getSubBucketEntry(String key) {
-            return (BucketEntry) getObjectOr(subBucketEntries, key, new BucketEntry());
-        }
-
-        private void parseDataList() {
+        public void parseDataList() {
             ArrayList<LinkedHashMap<String, String>> acc = new ArrayList();
             LinkedHashMap<String, String> stickyMap = new LinkedHashMap();
             for(Map<String, String> sourceMap : dataList) {
                 if( acc.size() == 0 ) {
                     for(Map.Entry<String, String> e : sourceMap.entrySet()) {
-                        stickyMap.put(e.getKey(), getObjectOr(sourceMap, e.getKey(), e.getValue()));
-                        acc.add(stickyMap);
+                        stickyMap.put(e.getKey(), sourceMap.get(e.getKey()));
                     }
+                    acc.add(stickyMap);
                 } else {
                     LinkedHashMap<String, String> mergedMap = new LinkedHashMap();
                     for(Map.Entry<String, String> e : stickyMap.entrySet()) {
-                        mergedMap.put(e.getKey(), getObjectOr(sourceMap, e.getKey(), e.getValue()));
-                        acc.add(mergedMap);
+                        String sourceValue = sourceMap.get(e.getKey());
+                        if ( null == sourceValue ) {
+                            mergedMap.put(e.getKey(), getValueOr(sourceMap, e.getKey(), e.getValue()));
+                        } else if ( sourceValue.equals("") ){ } else {
+                            mergedMap.put(e.getKey(), getValueOr(sourceMap, e.getKey(), e.getValue()));
+                        }
                     }
+                    acc.add(mergedMap);
                 }
             }
             this.dataList = acc;
         }
     }
+
+    public static LinkedHashMap<String, Object> decompressAll(Map<String, Object> m) {
+        LinkedHashMap<String, Object> all = new LinkedHashMap(getGlobalValues(m));
+        LinkedHashMap<String, String> translate = new LinkedHashMap();
+        translate.put("initial_condition", "soilLayer");
+        translate.put("soil", "soilLayer");
+        translate.put("weather", "dailyWeather");
+        translate.put("management", "events");
+
+        ArrayList<String> buckets = listBucketNames(m);
+        for(String bucket : buckets) {
+            BucketEntry b = getBucket(m, bucket);
+            LinkedHashMap<String, Object> sub = new LinkedHashMap<String, Object>(b.getValues());
+            sub.put(translate.get(bucket), b.getDataList());
+            all.put(bucket, sub);
+        }
+
+        return all;
+    }
+
 
     public static <K,V> V getObjectOr(Map<K,V> m, K key, V orValue ) {
         Optional<V> opt = Optional.fromNullable(m.get(key));
@@ -89,15 +103,9 @@ public class MapUtil {
         return acc;
     }
 
-    public static ArrayList<BucketEntry> getBucket(Map<String, Object> m, String key) {
-        ArrayList<BucketEntry> acc = new ArrayList();
-        Object source = getObjectOr(m, key, new ArrayList());
-        if( isValidBucket(source) ) {
-            for(LinkedHashMap<String, Object> map : (ArrayList<LinkedHashMap<String,Object>>) source) {
-                acc.add(new BucketEntry(map));
-            }
-        }
-        return acc;
+    public static BucketEntry getBucket(Map<String, Object> m, String key) {
+        LinkedHashMap<String, Object> b = (LinkedHashMap<String,Object>) getObjectOr(m, key, new LinkedHashMap<String, Object>());
+        return new BucketEntry(b);
     }
 
     public static LinkedHashMap<String, String> getGlobalValues(Map<String, Object> m) {
@@ -119,17 +127,7 @@ public class MapUtil {
      * Check to see if the passed Object is a valid Bucket
      */
     private static boolean isValidBucket(Object test) {
-        if( test instanceof List ) {
-            if( ((List) test).size() == 0 ) {
-                return false;
-            } else {
-                if( ((List) test).get(0) instanceof Map ) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        } else if ( test instanceof Map ) {
+        if ( test instanceof Map ) {
             return true;
         } else {
             return false;
