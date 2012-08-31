@@ -7,6 +7,6 @@ package org.agmip.core.types;
 import java.util.Map;
 import java.io.IOException;
 
-public interface TranslatorOutput {
+public interface TranslatorOutput extends TranslatorIO {
     public void writeFile(String outputDirectory, Map data) throws IOException;
 }

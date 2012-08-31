@@ -2,6 +2,7 @@ package org.agmip.util;
 
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,13 +13,14 @@ public class MapUtil {
     public static class BucketEntry {
         private LinkedHashMap<String, String> values = new LinkedHashMap();
         private ArrayList<LinkedHashMap<String, String>> dataList = new ArrayList();
+        private LinkedHashMap<String, BucketEntry> subBuckets = new LinkedHashMap();
 
         public BucketEntry(LinkedHashMap<String, Object> m) {
             for(Map.Entry<String, Object> entry : m.entrySet()) {
                 String key = entry.getKey();
                 Object value = entry.getValue();
 
-                if( key.equals("data") || key.equals("soilLayer") || key.equals("dailyWeather") || key.equals("events") ) {
+                if( key.equals("data") || key.equals("soilLayer") || key.equals("dailyWeather") || key.equals("events") || key.equals("timeSeries") ) {
                     this.dataList = (ArrayList<LinkedHashMap<String, String>>) value;
                     if(! key.equals("events") ) {
                         this.parseDataList();
@@ -72,6 +74,7 @@ public class MapUtil {
         translate.put("soil", "soilLayer");
         translate.put("weather", "dailyWeather");
         translate.put("management", "events");
+        translate.put("observed", "timeSeries");
 
         ArrayList<String> buckets = listBucketNames(m);
         for(String bucket : buckets) {
@@ -120,6 +123,34 @@ public class MapUtil {
 
     public static String getValueOr(Map<String, String> m, String key, String orValue) {
         return getObjectOr(m, key, orValue);
+    }
+
+    public static LinkedHashMap<String, String> flattenGlobals(Map<String, Object> m) {
+        LinkedHashMap<String, String> globals = new LinkedHashMap<String, String>(getGlobalValues(m));
+        ArrayList<String> buckets = listBucketNames(m);
+        Iterator iter = buckets.iterator();
+        
+        while(iter.hasNext()) {
+            BucketEntry b = getBucket(m, (String) iter.next());
+            globals.putAll(b.getValues());
+        }
+
+        return globals;
+    }
+
+    public static LinkedHashMap<String, String> extract(Map<String,Object> m, Set<String> s) {
+        LinkedHashMap<String, String> extracted = new LinkedHashMap<String,String>();
+        LinkedHashMap<String, String> flatMap = flattenGlobals(m);
+
+        Iterator i = s.iterator();
+        while(i.hasNext()) {
+            String key = (String) i.next();
+            if( flatMap.containsKey(key) ) {
+                extracted.put(key, flatMap.get(key));
+            }
+        }
+
+        return extracted;
     }
 
 
