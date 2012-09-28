@@ -1,101 +1,49 @@
 package org.agmip.util;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import com.google.common.base.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-/**
- * This class provides a simple interface to handle AgMIP bucket entries
- * inside a nested structure. These entries are returned by the AgMIP translators
- * and reflect collections of data (such as weather stations and data, soil
- * information, or field experiment parameters.
- *
- * All methods provided by this class are <code>static</code> 
- * @author Christopher Villalobos
- * @version 0.15
- * @since 0.15
- */
-
 public class MapUtil {
-    /**
-     * Each <code>BucketEntry</code> corresponds to a section of the AgMIP
-     * experiment definition. Currently the core definitions are:
-     * <ul>
-     * <li>initial_conditions</li>
-     * <li>weather</li>
-     * <li>soil</li>
-     * <li>management</li>
-     * <li>observed</li>
-     * </ul>
-     * 
-     * Also, this supports custom per-translator buckets. These will be stored
-     * in the database as such and may not be used by other translators. Do not
-     * put required information into custom buckets.
-     */
-
-    private static final Logger LOG = LoggerFactory.getLogger(MapUtil.class);
     public static class BucketEntry {
-        private HashMap<String, String> values = new HashMap();
-        private ArrayList<HashMap<String, String>> dataList = new ArrayList();
-        private HashMap<String, BucketEntry> subBuckets = new HashMap();
+        private LinkedHashMap<String, String> values = new LinkedHashMap();
+        private ArrayList<LinkedHashMap<String, String>> dataList = new ArrayList();
+        private LinkedHashMap<String, BucketEntry> subBuckets = new LinkedHashMap();
 
-        public BucketEntry(HashMap<String, Object> m) {
+        public BucketEntry(LinkedHashMap<String, Object> m) {
             for(Map.Entry<String, Object> entry : m.entrySet()) {
                 String key = entry.getKey();
                 Object value = entry.getValue();
 
                 if( key.equals("data") || key.equals("soilLayer") || key.equals("dailyWeather") || key.equals("events") || key.equals("timeSeries") ) {
-                    this.dataList = (ArrayList<HashMap<String, String>>) value;
+                    this.dataList = (ArrayList<LinkedHashMap<String, String>>) value;
                     if(! key.equals("events") ) {
                         this.parseDataList();
                     }
                 } else {
-                    try {
-                        values.put(key, (String) value);
-                    } catch (ClassCastException ex) {
-                        LOG.error("VALUE INSERTION ERROR ["+key+"]: "+value.toString());
-                    }
+                    values.put(key, (String) value);
                 }
             }
         }
 
         public BucketEntry() {}
 
-        /**
-         * Returns the non-nested (or top level) data associated with this bucket.
-         * 
-         * @return the non-nested values associated with this bucket.
-         */
-        public HashMap<String, String> getValues() {
+        public LinkedHashMap<String, String> getValues() {
             return values;
         }
 
-        /**
-         * Returns the nested values associated with this bucket.
-         * 
-         * Each bucket type may have nested values associated with it. For
-         * example, soil has soilLayers and weather has dailyWeather.
-         * 
-         * @return the nested values associated with this bucket.
-         */
-        public ArrayList<HashMap<String, String>> getDataList() {
+        public ArrayList<LinkedHashMap<String, String>> getDataList() {
             return dataList;
         }
 
-        /**
-         * Decompresses data from a data list and populates the local dataList
-         * variable.
-         * 
-         */
         public void parseDataList() {
-            ArrayList<HashMap<String, String>> acc = new ArrayList();
-            HashMap<String, String> stickyMap = new HashMap();
+            ArrayList<LinkedHashMap<String, String>> acc = new ArrayList();
+            LinkedHashMap<String, String> stickyMap = new LinkedHashMap();
             for(Map<String, String> sourceMap : dataList) {
                 if( acc.size() == 0 ) {
                     for(Map.Entry<String, String> e : sourceMap.entrySet()) {
@@ -103,7 +51,7 @@ public class MapUtil {
                     }
                     acc.add(stickyMap);
                 } else {
-                    HashMap<String, String> mergedMap = new HashMap();
+                    LinkedHashMap<String, String> mergedMap = new LinkedHashMap();
                     for(Map.Entry<String, String> e : stickyMap.entrySet()) {
                         String sourceValue = sourceMap.get(e.getKey());
                         if ( null == sourceValue ) {
@@ -119,16 +67,10 @@ public class MapUtil {
         }
     }
 
-    
-    /**
-     * 
-     * @param m The source map from the translator or database
-     * @return an uncompressed version of the map.
-     */
-    public static HashMap<String, Object> decompressAll(Map<String, Object> m) {
-        HashMap<String, Object> all = new HashMap(getGlobalValues(m));
-        HashMap<String, String> translate = new HashMap();
-        translate.put("initial_conditions", "soilLayer");
+    public static LinkedHashMap<String, Object> decompressAll(Map<String, Object> m) {
+        LinkedHashMap<String, Object> all = new LinkedHashMap(getGlobalValues(m));
+        LinkedHashMap<String, String> translate = new LinkedHashMap();
+        translate.put("initial_condition", "soilLayer");
         translate.put("soil", "soilLayer");
         translate.put("weather", "dailyWeather");
         translate.put("management", "events");
@@ -137,14 +79,11 @@ public class MapUtil {
         ArrayList<String> buckets = listBucketNames(m);
         for(String bucket : buckets) {
             BucketEntry b = getBucket(m, bucket);
-            HashMap<String, Object> sub = new HashMap<String, Object>(b.getValues());
-            String nestedKey = translate.get(bucket);
-            if (nestedKey == null) {
-                nestedKey = "data";
-            }
-            sub.put(nestedKey, b.getDataList());
+            LinkedHashMap<String, Object> sub = new LinkedHashMap<String, Object>(b.getValues());
+            sub.put(translate.get(bucket), b.getDataList());
             all.put(bucket, sub);
         }
+
         return all;
     }
 
@@ -155,7 +94,7 @@ public class MapUtil {
     }
 
     /**
-     * Returns a list of all bucket names in the provided Map.
+     * Returns a list of all buckets in the provided Map.
      */ 
     public static ArrayList<String> listBucketNames(Map<String, Object> m) {
         ArrayList<String> acc = new ArrayList<String>();
@@ -168,12 +107,12 @@ public class MapUtil {
     }
 
     public static BucketEntry getBucket(Map<String, Object> m, String key) {
-        HashMap<String, Object> b = (HashMap<String,Object>) getObjectOr(m, key, new HashMap<String, Object>());
+        LinkedHashMap<String, Object> b = (LinkedHashMap<String,Object>) getObjectOr(m, key, new LinkedHashMap<String, Object>());
         return new BucketEntry(b);
     }
 
-    public static HashMap<String, String> getGlobalValues(Map<String, Object> m) {
-        HashMap<String, String> globals = new HashMap<String, String>();
+    public static LinkedHashMap<String, String> getGlobalValues(Map<String, Object> m) {
+        LinkedHashMap<String, String> globals = new LinkedHashMap<String, String>();
         for(Map.Entry<String, Object> entry : m.entrySet()) {
             if(entry.getValue() instanceof String) {
                 globals.put(entry.getKey(), (String) entry.getValue());
@@ -186,8 +125,8 @@ public class MapUtil {
         return getObjectOr(m, key, orValue);
     }
 
-    public static HashMap<String, String> flattenGlobals(Map<String, Object> m) {
-        HashMap<String, String> globals = new HashMap<String, String>(getGlobalValues(m));
+    public static LinkedHashMap<String, String> flattenGlobals(Map<String, Object> m) {
+        LinkedHashMap<String, String> globals = new LinkedHashMap<String, String>(getGlobalValues(m));
         ArrayList<String> buckets = listBucketNames(m);
         Iterator iter = buckets.iterator();
         
@@ -199,9 +138,9 @@ public class MapUtil {
         return globals;
     }
 
-    public static HashMap<String, String> extract(Map<String,Object> m, Set<String> s) {
-        HashMap<String, String> extracted = new HashMap<String,String>();
-        HashMap<String, String> flatMap = flattenGlobals(m);
+    public static LinkedHashMap<String, String> extract(Map<String,Object> m, Set<String> s) {
+        LinkedHashMap<String, String> extracted = new LinkedHashMap<String,String>();
+        LinkedHashMap<String, String> flatMap = flattenGlobals(m);
 
         Iterator i = s.iterator();
         while(i.hasNext()) {

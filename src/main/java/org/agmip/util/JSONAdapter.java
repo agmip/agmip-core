@@ -5,17 +5,20 @@ package org.agmip.util;
  */
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.HashMap;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.type.TypeReference;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JSONAdapter {
     private static final ObjectMapper mapper = new ObjectMapper();
+    private static final Logger LOG = LoggerFactory.getLogger(JSONAdapter.class);
 
-    public static LinkedHashMap<String, Object> fromJSON(String json) throws IOException {
-        return mapper.readValue(json, LinkedHashMap.class);
+    public static HashMap<String, Object> fromJSON(String json) throws IOException {
+        return mapper.readValue(json, new TypeReference<HashMap<String, Object>>() {});
     } 
 
     public static String toJSON(Object obj) throws IOException {
