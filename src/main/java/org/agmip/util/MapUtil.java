@@ -167,9 +167,38 @@ public class MapUtil {
         return acc;
     }
 
+    /**
+     * Returns a list of package contents (for Data Packages).
+     */
+
+    public static ArrayList<String> listPackageContents(Map<String, Object> m) {
+        ArrayList<String> acc = new ArrayList<String>();
+        for (Map.Entry<String, Object> entry : m.entrySet()) {
+            if (isValidPackageContent(entry.getValue())) {
+                acc.add(entry.getKey());
+            }
+        }
+        return acc;
+    }
+
     public static BucketEntry getBucket(Map<String, Object> m, String key) {
         HashMap<String, Object> b = (HashMap<String,Object>) getObjectOr(m, key, new HashMap<String, Object>());
         return new BucketEntry(b);
+    }
+
+    public static ArrayList<BucketEntry> getPackageContents(Map<String, Object> m, String key) {
+        ArrayList<HashMap<String, Object>> content;
+        ArrayList<BucketEntry> acc = new ArrayList<BucketEntry>();
+
+        Object a = getObjectOr(m, key, new ArrayList<HashMap<String, Object>>());
+        if (isValidPackageContent(a)) {
+            // Should be the same memory address.
+            content = (ArrayList<HashMap<String, Object>>) a;
+            for (HashMap<String, Object> b : content) {
+                acc.add(new BucketEntry(b));
+            }
+        } 
+        return acc;
     }
 
     public static HashMap<String, String> getGlobalValues(Map<String, Object> m) {
@@ -220,6 +249,19 @@ public class MapUtil {
      */
     private static boolean isValidBucket(Object test) {
         if ( test instanceof Map ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static boolean isValidPackageContent(Object test) {
+        if (test instanceof ArrayList ) {
+            for (Object testBucket : (ArrayList<Object>) test) {
+                if (! isValidBucket(testBucket)) {
+                    return false;
+                }
+            }
             return true;
         } else {
             return false;
