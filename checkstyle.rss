@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2012</copyright>
     <item>
-      <title>File: 4,
-             Errors: 79,
+      <title>File: 8,
+             Errors: 206,
              Warnings: 0,
              Infos: 0
       </title>
@@ -29,7 +29,7 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.AdvancedHashMap.java">org/agmip/core/types/AdvancedHashMap.java</a>
+                  <a href="http://agmip.org//checkstyle.html#org.agmip.util.Helpers.java">org/agmip/util/Helpers.java</a>
                 </td>
                 <td>
                   0
@@ -38,7 +38,49 @@
                   0
                 </td>
                 <td>
-                  42
+                  34
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.TranslatorIO.java">org/agmip/core/types/TranslatorIO.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.types.TimeseriesComparator.java">org/agmip/core/types/TimeseriesComparator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://agmip.org//checkstyle.html#org.agmip.util.MapUtil.java">org/agmip/util/MapUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  125
                 </td>
               </tr>
                           <tr>
@@ -66,7 +108,7 @@
                   0
                 </td>
                 <td>
-                  29
+                  15
                 </td>
               </tr>
                           <tr>
@@ -80,7 +122,21 @@
                   0
                 </td>
                 <td>
-                  4
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://agmip.org//checkstyle.html#org.agmip.core.ModelEnum.java">org/agmip/core/ModelEnum.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
                 </td>
               </tr>
                       </tbody>
