@@ -187,18 +187,21 @@ public class MapUtil {
     }
 
     public static ArrayList<BucketEntry> getPackageContents(Map<String, Object> m, String key) {
-        ArrayList<HashMap<String, Object>> content;
         ArrayList<BucketEntry> acc = new ArrayList<BucketEntry>();
+        for (HashMap<String, Object> b : getRawPackageContents(m, key)) {
+            acc.add(new BucketEntry(b));
+        }
+        return acc;
+    }
 
+    public static ArrayList<HashMap<String, Object>> getRawPackageContents(Map<String, Object> m, String key) {
+        // This should all be a window into the same map object (not create a clone of it).
         Object a = getObjectOr(m, key, new ArrayList<HashMap<String, Object>>());
         if (isValidPackageContent(a)) {
             // Should be the same memory address.
-            content = (ArrayList<HashMap<String, Object>>) a;
-            for (HashMap<String, Object> b : content) {
-                acc.add(new BucketEntry(b));
-            }
-        } 
-        return acc;
+            return (ArrayList<HashMap<String, Object>>) a;
+        }
+        return new ArrayList<HashMap<String, Object>>();
     }
 
     public static HashMap<String, String> getGlobalValues(Map<String, Object> m) {
