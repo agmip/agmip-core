@@ -214,8 +214,8 @@ public class MapUtil {
         return globals;
     }
 
-    public static String getValueOr(Map<String, String> m, String key, String orValue) {
-        return getObjectOr(m, key, orValue);
+    public static String getValueOr(Map m, String key, String orValue) {
+        return (String) getObjectOr(m, key, orValue);
     }
 
     public static HashMap<String, String> flattenGlobals(Map<String, Object> m) {
