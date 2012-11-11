@@ -246,6 +246,101 @@ public class MapUtil {
         return extracted;
     }
 
+    public static ArrayList<HashMap<String, Object>> flatPack(HashMap<String, Object> bundledData) {
+    
+    	
+        ArrayList<HashMap<String, Object>> ikea = new ArrayList<HashMap<String, Object>>();
+        ArrayList<HashMap<String, Object>> weathers = getRawPackageContents(bundledData, "weathers");
+        ArrayList<HashMap<String, Object>> soils = getRawPackageContents(bundledData, "soils");
+        ArrayList<HashMap<String, Object>> experiments = getRawPackageContents(bundledData, "experiments");
+        ArrayList<String> foundWeathers = new ArrayList<String>();
+        ArrayList<String> foundSoils = new ArrayList<String>();
+
+        LOG.debug("ENTERING FLATPACK()");
+        
+        for (HashMap<String, Object> wst : weathers) {
+            String wst_id = getValueOr(wst, "wst_id", "");
+            if (!wst_id.equals("")) {
+                foundWeathers.add(wst_id);
+            }
+        }
+
+        for (HashMap<String, Object> soil : soils) {
+            String soil_id = getValueOr(soil, "soil_id", "");
+            if (!soil_id.equals("")) {
+                foundSoils.add(soil_id);
+            }
+        }
+
+        for (HashMap<String, Object> experiment : experiments) {
+            HashMap<String, Object> newExp = new HashMap<String, Object>(experiment);
+            LOG.debug("Current Experiment: {}", newExp);
+            String wst_id = getValueOr(experiment, "wst_id", "");
+            String soil_id = getValueOr(experiment, "soil_id", "");
+
+
+            if (!wst_id.equals("")) {
+                int w_ref = foundWeathers.indexOf(wst_id);
+                if (w_ref != -1) {
+                    newExp.put("weather", weathers.get(w_ref));
+                }
+            }
+
+            if (!soil_id.equals("")) {
+                int s_ref = foundSoils.indexOf(soil_id);
+                if (s_ref != -1) {
+                    newExp.put("soil", soils.get(s_ref));
+                }
+            }
+            
+            ikea.add(newExp);
+        }
+        LOG.debug("LEAVING FLATPACK()");
+		return ikea;
+    }
+
+    public static HashMap<String, ArrayList<HashMap<String, Object>>> bundle(ArrayList<HashMap<String, Object>> flatData) {
+        HashMap<String, ArrayList<HashMap<String, Object>>> bigBox = new HashMap<String, ArrayList<HashMap<String, Object>>>();
+        ArrayList<HashMap<String, Object>> experiments = new ArrayList<HashMap<String, Object>>();
+        ArrayList<HashMap<String, Object>> weathers = new ArrayList<HashMap<String, Object>>();
+        ArrayList<HashMap<String, Object>> soils = new ArrayList<HashMap<String, Object>>();
+        ArrayList<String> foundWeathers = new ArrayList<String>();
+        ArrayList<String> foundSoils = new ArrayList<String>();
+
+
+
+        for (HashMap<String, Object> item : flatData) {
+            if (item.containsKey("weather")) {
+                HashMap<String, Object> w_ref = (HashMap<String, Object>) item.get("weather");
+                if (w_ref.containsKey("wst_id")) {
+                    String wst_id = (String) w_ref.get("wst_id");
+                    if (! foundWeathers.contains(wst_id)) {
+                        foundWeathers.add(wst_id);
+                        weathers.add(w_ref);
+                    }
+                }
+            }
+
+            if (item.containsKey("soil")) {
+                HashMap<String, Object> s_ref = (HashMap<String, Object>) item.get("soil");
+                if (s_ref.containsKey("soil_id")) {
+                    String soil_id = (String) s_ref.get("soil_id");
+                    if (! foundSoils.contains(soil_id)) {
+                        foundSoils.add(soil_id);
+                        soils.add(s_ref);
+                    }
+                }
+            }
+
+            item.remove("weather");
+            item.remove("soil");
+            experiments.add(item);
+        }
+        bigBox.put("experiments", experiments);
+        bigBox.put("soils", soils);
+        bigBox.put("weathers", weathers);
+        return bigBox;
+    }
 
     /**
      * Check to see if the passed Object is a valid Bucket
