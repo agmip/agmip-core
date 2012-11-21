@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.net.URL;
 
 import org.junit.Test;
+import org.junit.Ignore;
 import static org.junit.Assert.*;
 
 import static org.agmip.util.MapUtil.*;
@@ -19,6 +20,7 @@ public class MapUtilTest {
     }
 
     @Test
+    @Ignore
     public void decompression() throws IOException {
         URL resource = this.getClass().getResource("/simulation.json");
         String json = new Scanner(new File(resource.getPath()), "UTF-8").useDelimiter("\\A").next();
