@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -48,7 +49,7 @@ public class AcmoUtilTest {
         assertEquals("Incorrect fep_tot", "0.65", results.get("fep_tot"));
     }
 
-    @Test 
+    @Test
     public void checkIrrigationTest() {
         AcePathfinderUtil.insertValue(coreMap, "idate", "19810101");
         AcePathfinderUtil.insertValue(coreMap, "irval", "25");
@@ -63,6 +64,29 @@ public class AcmoUtilTest {
 
         assertEquals("Number of irrigation events incorrect", "3", results.get("ir_count"));
         assertEquals("Incorrect ir_tot", "90.2", results.get("ir_tot"));
-        assertEquals("Incorrect irop", "Sprinkler|Flood");
+        assertEquals("Incorrect irop", "Sprinkler, mm|Flood, mm", results.get("irop"));
+    }
+
+    @Test
+    public void checkOrganicMatterTest() {
+        AcePathfinderUtil.insertValue(coreMap, "omdat", "19810101");
+        AcePathfinderUtil.insertValue(coreMap, "omamt", "25");
+        AcePathfinderUtil.insertValue(coreMap, "omdat", "19810202");
+        AcePathfinderUtil.insertValue(coreMap, "omamt", ".25");
+        HashMap<String, String> results = AcmoUtil.extractEventData(coreMap, "dssat");
+
+        assertEquals("Total amount of OM incorrect", "25.25", results.get("omamt"));
+    }
+
+    @Test
+    public void checkTillageTest() {
+        AcePathfinderUtil.insertValue(coreMap, "tdate", "19810101");
+        AcePathfinderUtil.insertValue(coreMap, "tiimp", "TI003");
+        AcePathfinderUtil.insertValue(coreMap, "tdate", "19810202");
+        AcePathfinderUtil.insertValue(coreMap, "tiimp", "TI005");
+        HashMap<String, String> results = AcmoUtil.extractEventData(coreMap, "dssat");
+
+        assertEquals("Number of tillage events incorrect", "2", results.get("ti_count"));
+        assertEquals("Tillage implements incorrect", "Moldboard plow 20 cm depth|Chisel plow, straight point", results.get("tiimp"));
     }
 }
