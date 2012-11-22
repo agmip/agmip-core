@@ -186,6 +186,10 @@ public class MapUtil {
         return new BucketEntry(b);
     }
 
+    public static HashMap<String, Object> getRawBucket(Map<String, Object> m, String key) {
+        return (HashMap<String, Object>) getObjectOr(m, key, new HashMap<String, Object>());
+    }
+
     public static ArrayList<BucketEntry> getPackageContents(Map<String, Object> m, String key) {
         ArrayList<BucketEntry> acc = new ArrayList<BucketEntry>();
         for (HashMap<String, Object> b : getRawPackageContents(m, key)) {

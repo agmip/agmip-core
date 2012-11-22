@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.agmip</groupId>
     <artifactId>agmip-core</artifactId>
-    <version>0.15-SNAPSHOT</version>
+    <version>0.15</version>
     <name>AgMIP Core Library</name>
     <description>The AgMIP core library which contains generic definitions for common objects within AgMIP</description>
     <url>http://agmip.org/</url>
@@ -29,7 +29,8 @@
         <url>https://github.com/agmip/agmip-core</url>
         <connection>scm:git:git://github.com/agmip/agmip-core.git</connection>
         <developerConnection>scm:git:git@github.com:agmip/agmip-core.git</developerConnection>
-    </scm>
+      <tag>agmip-core-0.15</tag>
+  </scm>
 
     <developers>
         <developer>
@@ -46,7 +47,7 @@
 
     <build>
         <plugins>
-            <plugin>
+<!--            <plugin>
                 <groupId>com.github.github</groupId>
                 <artifactId>downloads-maven-plugin</artifactId>
                 <version>0.4</version>
@@ -79,7 +80,7 @@
                         <phase>site</phase>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
@@ -159,6 +160,15 @@
                     </execution>
                 </executions>
             </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<pushChanges>false</pushChanges>
+					<localCheckout>true</localCheckout>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 
@@ -183,6 +193,11 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.agmip</groupId>
+            <artifactId>ace-lookup</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>
