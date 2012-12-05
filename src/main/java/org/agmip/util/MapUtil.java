@@ -278,7 +278,6 @@ public class MapUtil {
 
         for (HashMap<String, Object> experiment : experiments) {
             HashMap<String, Object> newExp = new HashMap<String, Object>(experiment);
-            LOG.debug("Current Experiment: {}", newExp);
             String wst_id = getValueOr(experiment, "wst_id", "");
             String soil_id = getValueOr(experiment, "soil_id", "");
 
