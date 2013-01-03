@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.agmip</groupId>
     <artifactId>agmip-core</artifactId>
-    <version>0.15.1</version>
+    <version>1.0</version>
     <name>AgMIP Core Library</name>
     <description>The AgMIP core library which contains generic definitions for common objects within AgMIP</description>
     <url>http://agmip.org/</url>
@@ -29,7 +29,7 @@
         <url>https://github.com/agmip/agmip-core</url>
         <connection>scm:git:git://github.com/agmip/agmip-core.git</connection>
         <developerConnection>scm:git:git@github.com:agmip/agmip-core.git</developerConnection>
-      <tag>agmip-core-0.15.1</tag>
+      <tag>agmip-core-1.0</tag>
   </scm>
 
     <developers>
@@ -100,6 +100,9 @@
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-javadoc-plugin</artifactId>
                             <version>2.8.1</version>
+			    <configuration>
+                                <stylesheetfile>${basedir}/src/resources/javadoc/stylesheet.css</stylesheetfile>
+                            </configuration>
                         </plugin>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
