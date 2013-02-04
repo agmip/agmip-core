@@ -24,4 +24,9 @@ public class JSONAdapter {
     public static String toJSON(Object obj) throws IOException {
         return mapper.writeValueAsString(obj);
     }
+
+    public static HashMap<String, Object> fromJSONFile(String path) throws IOException {
+        String json = new Scanner(new File(path)), "UTF-8").useDelimiter("\\A").next();
+        return mapper.readValue(json, new TypeReference<HashMap<String, Object>>() {});
+    }
 }
