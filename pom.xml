@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.agmip</groupId>
     <artifactId>agmip-core</artifactId>
-    <version>1.0.2</version>
+    <version>1.1</version>
     <name>AgMIP Core Library</name>
     <description>The AgMIP core library which contains generic definitions for common objects within AgMIP</description>
     <url>http://agmip.org/</url>
@@ -29,7 +29,7 @@
         <url>https://github.com/agmip/agmip-core</url>
         <connection>scm:git:git://github.com/agmip/agmip-core.git</connection>
         <developerConnection>scm:git:git@github.com:agmip/agmip-core.git</developerConnection>
-      <tag>agmip-core-1.0.2</tag>
+      <tag>agmip-core-1.1</tag>
   </scm>
 
     <developers>
@@ -43,6 +43,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdk.version>1.6</jdk.version>
     </properties>
 
     <build>
@@ -179,7 +180,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>12.0</version>
+            <version>14.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
@@ -189,7 +190,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.0.7</version>
+            <version>1.0.9</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -200,12 +201,7 @@
         <dependency>
             <groupId>org.agmip</groupId>
             <artifactId>ace-lookup</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.agmip</groupId>
-            <artifactId>dome</artifactId>
-            <version>1.1.1</version>
+            <version>1.1</version>
         </dependency>
     </dependencies>
 </project>
