@@ -198,10 +198,5 @@
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.agmip</groupId>
-            <artifactId>ace-lookup</artifactId>
-            <version>1.1</version>
-        </dependency>
     </dependencies>
 </project>
