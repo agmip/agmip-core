@@ -264,8 +264,9 @@ public class MapUtil {
         
         for (HashMap<String, Object> wst : weathers) {
             String wst_id = getValueOr(wst, "wst_id", "");
+            String clim_id = getValueOr(wst, "clim_id", "");
             if (!wst_id.equals("")) {
-                foundWeathers.add(wst_id);
+                foundWeathers.add(wst_id+clim_id);
             }
         }
 
@@ -279,13 +280,33 @@ public class MapUtil {
         for (HashMap<String, Object> experiment : experiments) {
             HashMap<String, Object> newExp = new HashMap<String, Object>(experiment);
             String wst_id = getValueOr(experiment, "wst_id", "");
+            String clim_id = getValueOr(experiment, "clim_id", "");
             String soil_id = getValueOr(experiment, "soil_id", "");
 
 
             if (!wst_id.equals("")) {
-                int w_ref = foundWeathers.indexOf(wst_id);
+                int w_ref = foundWeathers.indexOf(wst_id+clim_id);
                 if (w_ref != -1) {
                     newExp.put("weather", weathers.get(w_ref));
+                } else {
+                    if (clim_id.equals("")) {
+                        for (int i = 0; i < foundWeathers.size(); i++) {
+                            String foundWstId = foundWeathers.get(i);
+                            if (foundWstId.startsWith(wst_id)) {
+                                if (w_ref == -1) {
+                                    w_ref = i;
+                                } else if (foundWstId.length() > 4 && foundWstId.charAt(4) == '0') {
+                                    w_ref = i;
+                                }
+                            }
+                        }
+                        newExp.put("weather", weathers.get(w_ref));
+                    } else {
+                        w_ref = foundWeathers.indexOf(wst_id);
+                    }
+                    if (w_ref != -1) {
+                        newExp.put("weather", weathers.get(w_ref));
+                    }
                 }
             }
 
