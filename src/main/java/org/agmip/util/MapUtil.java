@@ -282,6 +282,7 @@ public class MapUtil {
             String wst_id = getValueOr(experiment, "wst_id", "");
             String clim_id = getValueOr(experiment, "clim_id", "");
             String soil_id = getValueOr(experiment, "soil_id", "");
+            String exname = getValueOr(experiment, "exname", "");
 
 
             if (!wst_id.equals("")) {
@@ -300,7 +301,11 @@ public class MapUtil {
                                 }
                             }
                         }
-                        newExp.put("weather", weathers.get(w_ref));
+                        if (w_ref == -1) {
+                                LOG.warn("{} could not find weather data [{}] in the data set", exname, wst_id + clim_id);
+                        } else {
+                            newExp.put("weather", weathers.get(w_ref));
+                        }
                     } else {
                         w_ref = foundWeathers.indexOf(wst_id);
                     }
