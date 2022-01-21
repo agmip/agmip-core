@@ -19,8 +19,7 @@ public class Helpers {
      * 2 separators, this is MOST LIKELY an invalid number and we must throw an
      * exception.
      *
-     * @throws InvalidNumberException
-     * @param String the original string to convert
+     * @param source the original string to convert
      * @return a Double representing the string.
 	 */
 	public static Double parseDouble(String source) {
@@ -52,7 +51,7 @@ public class Helpers {
         } 
         LOG.debug("separators: "+separators.toString());
         LOG.debug("pieces: "+pieces.toString());
-        if (separators.size() == 0) {
+        if (separators.isEmpty()) {
             // There should only be one entry anyways.
             finalVal.append(pieces.get(0).toString());
             finalVal.append(".0");
